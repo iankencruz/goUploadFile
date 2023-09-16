@@ -23,8 +23,25 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
 	defer file.Close()
+
+	err = r.ParseForm()
+	if err != nil {
+		fmt.Println("Error Parsing Form")
+		return
+	}
+
+	dateValue := r.PostFormValue("date")
+
+	date, err := time.Parse("2006-01-02", dateValue)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	formatDate := date.Format("02-01-2006")
+
+	fmt.Printf("Hello, %s!", formatDate)
 
 	// Create the uploads folder if it doesn't
 	// already exist
@@ -63,8 +80,6 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Printf("\n\nFile has been deleted \n\n")
 
-	time.Sleep(3 * time.Second)
-
 	w.Header().Add("Content-Type", "text/html")
 	http.ServeFile(w, r, "success.html")
 
@@ -74,12 +89,20 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "text/html")
 	http.ServeFile(w, r, "index.html")
 }
+func closeHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "text/html")
+	http.ServeFile(w, r, "exit.html")
+	fmt.Println("Server Closed")
+	os.Exit(1)
+}
 
 func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc("/upload", uploadHandler)
+	mux.HandleFunc("/exit", closeHandler)
 
 	http.ListenAndServe(":8000", mux)
+
 }
