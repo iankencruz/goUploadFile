@@ -1,0 +1,37 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>File upload demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d',
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+
+    <h1 class="flex mx-auto justify-center my-12">Upload successful</h1>
+
+      <form 
+        
+        id="form"
+        enctype="multipart/form-data"
+        action="/"
+        method="POST"
+      >
+        <button class="button" type="submit">Return to home</button>
+      </form>
+
+  </body>
+</html>

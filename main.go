@@ -6,11 +6,11 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-Type", "text/html")
-	http.ServeFile(w, r, "index.html")
+func redirectToFreshman(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("Req: %s", r.URL.Host)
 }
 
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
@@ -51,7 +51,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Upload successful")
+	fmt.Printf("\n\nUpload successful\n\n")
 	fmt.Printf("\n\nDo stuff Here \n\n")
 
 	fmt.Printf("\n\nNow delete the same file \n\n")
@@ -60,16 +60,26 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	if e != nil {
 		log.Fatal(e)
 	}
+
 	fmt.Printf("\n\nFile has been deleted \n\n")
 
+	time.Sleep(3 * time.Second)
+
+	w.Header().Add("Content-Type", "text/html")
+	http.ServeFile(w, r, "success.html")
+
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "text/html")
+	http.ServeFile(w, r, "index.html")
 }
 
 func main() {
 	mux := http.NewServeMux()
+
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc("/upload", uploadHandler)
 
-	if err := http.ListenAndServe(":4500", mux); err != nil {
-		log.Fatal(err)
-	}
+	http.ListenAndServe(":8000", mux)
 }
