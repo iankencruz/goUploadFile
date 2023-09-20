@@ -21,7 +21,10 @@
   <body>
 
     <section class="bg-gray-50 dark:bg-gray-900">
-      <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <form class="space-y-4 md:space-y-5" action="/exit" method="POST" id="form" enctype="multipart/form-data">
+        <span class="flex text-4xl text-white font-bold pl-16 pt-16 hover:text-gray-600 hover:cursor-pointer"> <button type="submit" name="exit" value="exit" class="">&times;</button></span>
+      </form>
+      <div class="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
           <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
               <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
               Flowbite    
@@ -42,9 +45,7 @@
                   </div>
                   <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
                 </form>
-              <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="/exit" method="POST" id="form" enctype="multipart/form-data">
-                <button type="submit" name="exit" value="exit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-800 dark:focus:ring-red-800">Close</button>
-              </form>
+              
           </div>
       </div>
     </section>
